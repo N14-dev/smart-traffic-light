@@ -1,0 +1,9 @@
+[project]
+name = "car-detection"
+version = "0.1.0"
+description = "Arduino-based dual traffic light controller with serial communication"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyserial>=3.5",
+]

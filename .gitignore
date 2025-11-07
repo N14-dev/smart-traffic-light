@@ -1,0 +1,41 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# YOLO models (downloaded automatically)
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# Ultralytics cache and runs
+runs/
+weights/
+
+# Test videos and images (optional - uncomment if you want to ignore)
+# *.mp4
+# *.avi
+# *.mov
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+#uv package files
+*.lock
