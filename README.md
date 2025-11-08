@@ -86,7 +86,7 @@ This will install:
 3. **Download YOLO models (optional - auto-downloads on first run):**
 
 ```bash
-python download_models.py
+uv download_models.py
 ```
 
 Select option 1 to download `yolov8s.pt` (recommended for best accuracy/speed balance).
@@ -106,7 +106,7 @@ Select option 1 to download `yolov8s.pt` (recommended for best accuracy/speed ba
 Run the smart traffic system with computer vision:
 
 ```bash
-python smart_traffic_control.py
+uv smart_traffic_control.py
 ```
 
 **Default settings:**
@@ -118,16 +118,16 @@ python smart_traffic_control.py
 
 ```bash
 # Use medium model (better accuracy)
-python smart_traffic_control.py --model yolov8m.pt
+uv smart_traffic_control.py --model yolov8m.pt
 
 # Use for real cars
-python smart_traffic_control.py --real-cars
+uv smart_traffic_control.py --real-cars
 
 # Use different camera
-python smart_traffic_control.py --camera 1
+uv smart_traffic_control.py --camera 1
 
 # Combine options
-python smart_traffic_control.py --model yolov8m.pt --camera 1 --real-cars
+uv smart_traffic_control.py --model yolov8m.pt --camera 1 --real-cars
 ```
 
 **Runtime keyboard controls:**
@@ -155,7 +155,7 @@ python smart_traffic_control.py --model yolov8m.pt --camera 1 --real-cars
 Run the test script to verify everything is working:
 
 ```bash
-python test_arduino.py
+uv test_arduino.py
 ```
 
 This will run 6 automated tests:
@@ -198,7 +198,7 @@ Different YOLO models offer different trade-offs between speed and accuracy:
 
 **Download models:**
 ```bash
-python download_models.py
+uv download_models.py
 ```
 
 The script will automatically download models on first use if not present locally.
@@ -272,7 +272,7 @@ If traffic lights don't change when cars are detected:
 2. Verify there's a difference in car counts between sides
 3. Wait at least 5 seconds between switches (minimum interval)
 4. Ensure smoothed counts show difference (not just current counts)
-5. Check Arduino lights respond to manual commands: `python test_arduino.py`
+5. Check Arduino lights respond to manual commands: `uv test_arduino.py`
 
 ### LEDs Not Working
 
@@ -400,12 +400,12 @@ The Arduino accepts these commands:
 
 4. **Test basic functionality:**
    ```bash
-   python test_arduino.py
+   uv test_arduino.py
    ```
 
 5. **Run smart traffic control:**
    ```bash
-   python smart_traffic_control.py
+   uv smart_traffic_control.py
    ```
 
 6. **Position toy cars** on left and right sides of camera view
