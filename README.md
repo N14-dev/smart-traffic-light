@@ -5,7 +5,7 @@ An intelligent traffic control system that uses **YOLO computer vision** to dete
 ## Features
 
 ### 🚦 Smart Traffic Control (NEW!)
-- **AI-powered detection**: Uses YOLOv8 to detect cars in real-time
+- **AI-powered detection**: Uses YOLOv11 (latest) to detect cars in real-time
 - **Automatic light switching**: Green light for side with more cars
 - **Toy car mode**: Optimized settings for small toy vehicles
 - **Real car mode**: Higher precision for real vehicle detection
@@ -58,7 +58,7 @@ An intelligent traffic control system that uses **YOLO computer vision** to dete
 - Python 3.12+
 - PySerial library
 - OpenCV (for camera access)
-- Ultralytics YOLOv8 (for object detection)
+- Ultralytics YOLO11 (latest - for object detection)
 - NumPy (for image processing)
 
 ## Installation
@@ -81,7 +81,7 @@ uv sync
 This will install:
 - `pyserial>=3.5` - Arduino communication
 - `opencv-python>=4.8.0` - Camera and image processing
-- `ultralytics>=8.0.0` - YOLOv8 object detection
+- `ultralytics>=8.0.0` - YOLO11 object detection
 
 3. **Download YOLO models (optional - auto-downloads on first run):**
 
@@ -89,7 +89,7 @@ This will install:
 uv download_models.py
 ```
 
-Select option 1 to download `yolov8s.pt` (recommended for best accuracy/speed balance).
+Select option 1 to download `yolo11s.pt` (recommended for best accuracy/speed balance).
 
 4. **Upload Arduino sketch:**
 
@@ -110,7 +110,7 @@ uv smart_traffic_control.py
 ```
 
 **Default settings:**
-- Model: `yolov8s.pt` (small, good balance)
+- Model: `yolo11s.pt` (small, good balance, latest YOLO version)
 - Mode: Toy car detection
 - Camera: Index 0 (default camera)
 
@@ -118,7 +118,7 @@ uv smart_traffic_control.py
 
 ```bash
 # Use medium model (better accuracy)
-uv smart_traffic_control.py --model yolov8m.pt
+uv smart_traffic_control.py --model yolo11m.pt
 
 # Use for real cars
 uv smart_traffic_control.py --real-cars
@@ -127,7 +127,7 @@ uv smart_traffic_control.py --real-cars
 uv smart_traffic_control.py --camera 1
 
 # Combine options
-uv smart_traffic_control.py --model yolov8m.pt --camera 1 --real-cars
+uv smart_traffic_control.py --model yolo11m.pt --camera 1 --real-cars
 ```
 
 **Runtime keyboard controls:**
@@ -186,15 +186,15 @@ q         - Quit
 
 ### 🤖 YOLO Model Selection
 
-Different YOLO models offer different trade-offs between speed and accuracy:
+Different YOLO models offer different trade-offs between speed and accuracy. We now use **YOLO11** - the latest version with improved performance!
 
 | Model | Size | Speed | Accuracy | Use Case |
 |-------|------|-------|----------|----------|
-| `yolov8n.pt` | 6 MB | Fastest | Good | Quick testing, low-end hardware |
-| `yolov8s.pt` | 22 MB | Fast | Better | **Recommended - Best balance** |
-| `yolov8m.pt` | 52 MB | Medium | Great | Higher accuracy needed |
-| `yolov8l.pt` | 87 MB | Slow | Excellent | Maximum accuracy |
-| `yolov8x.pt` | 136 MB | Slowest | Best | Professional applications |
+| `yolo11n.pt` | 5.5 MB | Fastest | Good | Quick testing, low-end hardware |
+| `yolo11s.pt` | 19 MB | Fast | Better | **Recommended - Best balance** |
+| `yolo11m.pt` | 40 MB | Medium | Great | Higher accuracy needed |
+| `yolo11l.pt` | 52 MB | Slow | Excellent | Maximum accuracy |
+| `yolo11x.pt` | 109 MB | Slowest | Best | Professional applications |
 
 **Download models:**
 ```bash
@@ -310,8 +310,8 @@ If detection is slow or laggy:
 ├── arduino_controller.py      # Python serial communication module
 ├── test_arduino.py            # Test script with interactive mode
 ├── traffic_lights.ino         # Arduino sketch for dual lights
-├── yolov8n.pt                 # YOLO nano model (6 MB)
-├── yolov8s.pt                 # YOLO small model (22 MB, recommended)
+├── yolo11n.pt                 # YOLO11 nano model (5.5 MB)
+├── yolo11s.pt                 # YOLO11 small model (19 MB, recommended)
 ├── pyproject.toml             # Python dependencies
 ├── uv.lock                    # Dependency lock file
 └── README.md                  # This file
@@ -329,14 +329,14 @@ If detection is slow or laggy:
 
 **Architecture:**
 ```
-Camera → Image Preprocessing → YOLOv8 Detection → Car Counting →
+Camera → Image Preprocessing → YOLO11 Detection → Car Counting →
 Traffic Logic → Arduino Controller → Physical LEDs
 ```
 
 **Detection Pipeline:**
 1. **Camera Capture**: Reads frames from webcam at high resolution (1280x720)
 2. **Preprocessing**: Enhances brightness, contrast, and sharpness for better detection
-3. **YOLO Detection**: YOLOv8 identifies objects with confidence scores
+3. **YOLO Detection**: YOLO11 identifies objects with confidence scores
 4. **Side Classification**: Divides frame into LEFT and RIGHT, assigns detections
 5. **Smoothing**: Averages counts over last 5 frames to reduce flickering
 6. **Decision Logic**: Compares car counts, switches light if one side has more cars
@@ -423,7 +423,7 @@ The Arduino accepts these commands:
 
 ### What Makes This Project Special
 
-✨ **AI-Powered**: Uses state-of-the-art YOLOv8 object detection
+✨ **AI-Powered**: Uses state-of-the-art YOLO11 (latest) object detection
 🎮 **Interactive**: Real-time adjustable settings via keyboard
 🔧 **Flexible**: Works with toy cars AND real vehicles
 📊 **Visual**: Live bounding boxes and statistics display
@@ -501,7 +501,7 @@ This project is provided as-is for educational purposes.
 
 ## Credits
 
-- **YOLOv8** by [Ultralytics](https://github.com/ultralytics/ultralytics)
+- **YOLO11** by [Ultralytics](https://github.com/ultralytics/ultralytics)
 - **OpenCV** for computer vision
 - **PySerial** for Arduino communication
 

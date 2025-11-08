@@ -14,12 +14,12 @@ import sys
 
 
 class SmartTrafficControl:
-    def __init__(self, model_path="yolov8s.pt", camera_index=0, toy_car_mode=True):
+    def __init__(self, model_path="yolo11s.pt", camera_index=0, toy_car_mode=True):
         """
         Initialize the smart traffic control system.
 
         Args:
-            model_path: Path to YOLO model file (yolov8n.pt, yolov8s.pt, yolov8m.pt, etc.)
+            model_path: Path to YOLO model file (yolo11n.pt, yolo11s.pt, yolo11m.pt, etc.)
             camera_index: Camera device index (0 for default camera)
             toy_car_mode: Enable detection settings optimized for toy cars
         """
@@ -466,8 +466,8 @@ def main():
     import argparse
 
     parser = argparse.ArgumentParser(description='Smart Traffic Control System with YOLO')
-    parser.add_argument('--model', type=str, default='yolov8s.pt',
-                       help='YOLO model to use (yolov8n.pt, yolov8s.pt, yolov8m.pt, yolov8l.pt, yolov8x.pt)')
+    parser.add_argument('--model', type=str, default='yolo11s.pt',
+                       help='YOLO model to use (yolo11n.pt, yolo11s.pt, yolo11m.pt, yolo11l.pt, yolo11x.pt)')
     parser.add_argument('--camera', type=int, default=0,
                        help='Camera index (default: 0)')
     parser.add_argument('--real-cars', action='store_true',

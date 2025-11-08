@@ -43,20 +43,21 @@ def download_model(model_name):
 def show_model_comparison():
     """Display comparison of different YOLO models."""
     print("\n" + "="*80)
-    print("YOLO MODEL COMPARISON")
+    print("YOLO MODEL COMPARISON - YOLO11 (LATEST)")
     print("="*80)
     print()
-    print("Model      | Size    | Speed    | Accuracy | Recommended For")
-    print("-----------+---------+----------+----------+--------------------------------")
-    print("yolov8n.pt | 6 MB    | Fastest  | Good     | Fast detection, limited accuracy")
-    print("yolov8s.pt | 22 MB   | Fast     | Better   | RECOMMENDED - Best balance")
-    print("yolov8m.pt | 52 MB   | Medium   | Great    | Higher accuracy, slower")
-    print("yolov8l.pt | 87 MB   | Slow     | Excellent| Maximum accuracy")
-    print("yolov8x.pt | 136 MB  | Slowest  | Best     | Professional use")
+    print("Model       | Size    | Speed    | Accuracy | Recommended For")
+    print("------------+---------+----------+----------+--------------------------------")
+    print("yolo11n.pt  | 5.5 MB  | Fastest  | Good     | Fast detection, low-end hardware")
+    print("yolo11s.pt  | 19 MB   | Fast     | Better   | RECOMMENDED - Best balance")
+    print("yolo11m.pt  | 40 MB   | Medium   | Great    | Higher accuracy, slower")
+    print("yolo11l.pt  | 52 MB   | Slow     | Excellent| Maximum accuracy")
+    print("yolo11x.pt  | 109 MB  | Slowest  | Best     | Professional use")
     print("="*80)
     print()
-    print("For toy car detection, we recommend: yolov8s.pt or yolov8m.pt")
-    print("These provide much better accuracy than yolov8n.pt without being too slow.")
+    print("YOLO11 is the latest version with improved accuracy and speed!")
+    print("For toy car detection, we recommend: yolo11s.pt or yolo11m.pt")
+    print("These provide excellent accuracy without being too slow.")
     print()
 
 
@@ -65,10 +66,10 @@ def main():
     show_model_comparison()
 
     print("\nWhich models would you like to download?")
-    print("1. yolov8s.pt (Small - RECOMMENDED)")
-    print("2. yolov8m.pt (Medium - More accurate)")
+    print("1. yolo11s.pt (Small - RECOMMENDED)")
+    print("2. yolo11m.pt (Medium - More accurate)")
     print("3. Both")
-    print("4. All models (n, s, m, l, x)")
+    print("4. All YOLO11 models (n, s, m, l, x)")
     print("5. Exit")
 
     choice = input("\nEnter your choice (1-5): ").strip()
@@ -76,19 +77,19 @@ def main():
     models_to_download = []
 
     if choice == '1':
-        models_to_download = ['yolov8s.pt']
+        models_to_download = ['yolo11s.pt']
     elif choice == '2':
-        models_to_download = ['yolov8m.pt']
+        models_to_download = ['yolo11m.pt']
     elif choice == '3':
-        models_to_download = ['yolov8s.pt', 'yolov8m.pt']
+        models_to_download = ['yolo11s.pt', 'yolo11m.pt']
     elif choice == '4':
-        models_to_download = ['yolov8n.pt', 'yolov8s.pt', 'yolov8m.pt', 'yolov8l.pt', 'yolov8x.pt']
+        models_to_download = ['yolo11n.pt', 'yolo11s.pt', 'yolo11m.pt', 'yolo11l.pt', 'yolo11x.pt']
     elif choice == '5':
         print("Exiting...")
         return
     else:
-        print("Invalid choice. Downloading yolov8s.pt by default...")
-        models_to_download = ['yolov8s.pt']
+        print("Invalid choice. Downloading yolo11s.pt by default...")
+        models_to_download = ['yolo11s.pt']
 
     print(f"\nDownloading {len(models_to_download)} model(s)...")
 
@@ -105,10 +106,10 @@ def main():
         print("\nTo use a model, run:")
         print(f"  python smart_traffic_control.py --model {models_to_download[0]}")
         print("\nOr for a different model:")
-        print("  python smart_traffic_control.py --model yolov8s.pt")
-        print("  python smart_traffic_control.py --model yolov8m.pt")
+        print("  python smart_traffic_control.py --model yolo11s.pt")
+        print("  python smart_traffic_control.py --model yolo11m.pt")
         print("\nFor real car detection:")
-        print("  python smart_traffic_control.py --model yolov8s.pt --real-cars")
+        print("  python smart_traffic_control.py --model yolo11s.pt --real-cars")
 
 
 if __name__ == "__main__":
