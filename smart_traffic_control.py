@@ -30,16 +30,14 @@ class SmartTrafficControl:
         # Detection settings
         self.toy_car_mode = toy_car_mode
         if toy_car_mode:
-            # Lower threshold for toy cars, detect all objects
-            self.confidence_threshold = 0.15
-            self.detect_all_objects = True
+            # Higher threshold for toy cars with improved camera quality
+            self.confidence_threshold = 0.35
             self.inference_size = 640  # Larger size for better detection
-            print("Using low confidence threshold (0.15) for toy car detection")
-            print("Detecting all objects (not just cars)")
+            print("Using confidence threshold (0.35) for toy car detection")
+            print("Detecting vehicles only (cars, motorcycles, buses, trucks)")
         else:
             # Higher threshold for real cars
             self.confidence_threshold = 0.5
-            self.detect_all_objects = False
             self.inference_size = 640
 
         # Image preprocessing settings
@@ -152,8 +150,9 @@ class SmartTrafficControl:
     def detect_cars(self, frame):
         """
         Detect cars in the frame using YOLO.
-        In toy car mode, detects all objects with low confidence threshold.
-        In real car mode, only detects vehicles with higher confidence.
+        Always detects only vehicles (cars, motorcycles, buses, trucks).
+        In toy car mode, uses low confidence threshold.
+        In real car mode, uses higher confidence threshold.
 
         Args:
             frame: Input frame from camera
@@ -164,27 +163,16 @@ class SmartTrafficControl:
         # Preprocess frame for better detection
         processed_frame = self.preprocess_frame(frame)
 
-        # Run YOLO detection with improved settings
-        if self.detect_all_objects:
-            # Detect all objects for toy cars
-            results = self.model(
-                processed_frame,
-                imgsz=self.inference_size,
-                conf=self.confidence_threshold,
-                iou=0.4,  # Lower IOU threshold for better overlapping detection
-                verbose=False,
-                agnostic_nms=True  # Class-agnostic NMS
-            )
-        else:
-            # COCO dataset vehicle classes: 2=car, 3=motorcycle, 5=bus, 7=truck
-            results = self.model(
-                processed_frame,
-                imgsz=self.inference_size,
-                conf=self.confidence_threshold,
-                iou=0.45,
-                classes=[2, 3, 5, 7],
-                verbose=False
-            )
+        # COCO dataset vehicle classes: 2=car, 3=motorcycle, 5=bus, 7=truck
+        # Always filter for vehicles only, never detect all objects
+        results = self.model(
+            processed_frame,
+            imgsz=self.inference_size,
+            conf=self.confidence_threshold,
+            iou=0.4 if self.toy_car_mode else 0.45,
+            classes=[2, 3, 5, 7],
+            verbose=False
+        )
 
         cars = []
         for result in results:
@@ -273,14 +261,14 @@ class SmartTrafficControl:
             print(f"{'='*60}\n")
 
             if preferred_side == 'left':
-                # Left side green (Light 1), right side red (Light 2)
+                # Left side has more cars - give green to left side (Light 1)
                 print("→ Light 1 (LEFT): GREEN")
                 print("→ Light 2 (RIGHT): RED")
                 self.arduino.set_green_1()
                 time.sleep(0.1)  # Small delay between commands
                 self.arduino.set_red_2()
             else:
-                # Right side green (Light 2), left side red (Light 1)
+                # Right side has more cars - give green to right side (Light 2)
                 print("→ Light 1 (LEFT): RED")
                 print("→ Light 2 (RIGHT): GREEN")
                 self.arduino.set_red_1()
